@@ -1,6 +1,4 @@
-# Welcome to DeepModels
-
-### Here you will be implementing your own models and networks along with applying well known imagenet models. 
+# Welcome to MkDocs
 
 For full documentation visit [mkdocs.org](http://mkdocs.org).
 
