@@ -22,14 +22,14 @@ def natural_key(string_):
     Define sort key that is integer-aware
     """
     return [int(s) if s.isdigit() else s for s in re.split(r'(\d+)', string_)]
-catsT =   '/users/shravankumar/deeplearning/Pyscripts/temp/data/train/cats'  
-catsV =   '/users/shravankumar/deeplearning/Pyscripts/temp/data/validation/cats'  
+catsT =   '../data/train/cats'  
+catsV =   '../data/validation/cats'  
 
-dogsT =   '/users/shravankumar/deeplearning/Pyscripts/temp/data/train/dogs'  
-dogsV =   '/users/shravankumar/deeplearning/Pyscripts/temp/data/validation/dogs'
+dogsT =   '../data/train/dogs'  
+dogsV =   '../data/validation/dogs'
 
-TRAIN_DIR = '/users/shravankumar/kaggle/kaggle_dogs_vs_cats/input/train/'
-TEST_DIR = '/users/shravankumar/kaggle/kaggle_dogs_vs_cats/input/test/'
+TRAIN_DIR = '../kaggle/kaggle_dogs_vs_cats/input/train/'
+TEST_DIR = '../kaggle/kaggle_dogs_vs_cats/input/test/'
 
 train_cats = sorted(glob.glob(os.path.join(TRAIN_DIR, 'cat*.jpg')), key=natural_key)
 train_dogs = sorted(glob.glob(os.path.join(TRAIN_DIR, 'dog*.jpg')), key=natural_key)
