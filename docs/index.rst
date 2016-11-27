@@ -22,7 +22,16 @@ Indices and tables
 
 Hello deep learners, welcome to the Deep Models in Practice. Everything around us is growing very rapidly with the advent of new technology. One thing we always keep in mind is :: It's all about making the world a better place:: for us and the coming generation. So this is one of my contributions to make the people life easy by providing the things I learned, that may be from scratch or by building upon gaints. I belive the learning is the process "Learning from Mistakes": Yes we do things and some time they may get wrong, then we notice and learn that is wrong and we are not supposed to do that again. Not only that, I have a lot concepts and ideas to connect and apply to the deep learning field to make it much better and efficient, just one bit less than to the human. I will put a lot of code example which can be easily adapt into your project requirements. Yes there is a lot for you. 
 
-Here is a simple python code to copy 1000 files from one directory to the other directory. We are all very familiar with Kaggle's dogs_vs_cats competetion. Kaggle is open data provider and they conduct amazing comptitions. If you didn't try yet, you must check this out `Kaggle Dog Vs. Cat <https://www.kaggle.com/c/dogs-vs-cats>`. So I downloaded the entire dogs and cats data and I wanted to use a portion of the data set to design a classfier. So here what I did to extract the first 'n' number of images out of one folder and copy to the other.
+Here is a simple python code to copy 1000 files from one directory to the other directory. We are all very familiar with Kaggle's dogs_vs_cats competetion. Kaggle is open data provider and they conduct amazing comptitions. If you didn't try yet, you must check this out `Kaggle Dog Vs. Cat <https://www.kaggle.com/c/dogs-vs-cats>`_. So I downloaded the entire dogs and cats data and I wanted to use a portion of the data set to design a classfier. So here what I did to extract the first 'n' number of images out of one folder and copy to the other.
+.. code-block:: python
+   :emphasize-lines: 3,5
+
+   def some_function():
+       interesting = False
+       print 'This line is highlighted.'
+       print 'This one is not...'
+       print '...but this one is.'
+
 
 .. code-block:: python
 	:linenos:
