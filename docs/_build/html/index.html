@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to Deep Models in Practice’s documentation! &mdash; Deep Models in Practice a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Deep Models in Practice a documentation" href="#" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-deep-models-in-practice-s-documentation">
+<h1>Welcome to Deep Models in Practice&#8217;s documentation!<a class="headerlink" href="#welcome-to-deep-models-in-practice-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+<p>Hello deep learners, welcome to the Deep Models in Practice. Everything around us is growing very rapidly with the advent of new technology. One thing we always keep in mind is :: It&#8217;s all about making the world a better place:: for us and the coming generation. So this is one of my contributions to make the people life easy by providing the things I learned, that may be from scratch or by building upon gaints. I belive the learning is the process &#8220;Learning from Mistakes&#8221;: Yes we do things and some time they may get wrong, then we notice and learn that is wrong and we are not supposed to do that again. Not only that, I have a lot concepts and ideas to connect and apply to the deep learning field to make it much better and efficient, just one bit less than to the human. I will put a lot of code example which can be easily adapt into your project requirements. Yes there is a lot for you.</p>
+<p>Here is a simple python code to copy 1000 files from one directory to the other directory. We are all very familiar with Kaggle&#8217;s dogs_vs_cats competetion. Kaggle is open data provider and they conduct amazing comptitions. If you didn&#8217;t try yet, you must check this out <a class="reference external" href="https://www.kaggle.com/c/dogs-vs-cats">Kaggle Dog Vs. Cat</a>. So I downloaded the entire dogs and cats data and I wanted to use a portion of the data set to design a classfier. So here what I did to extract the first &#8216;n&#8217; number of images out of one folder and copy to the other.</p>
+<div class="literal-block-wrapper container" id="cp1000-py">
+<div class="code-block-caption"><span class="caption-text">cp1000.py</span><a class="headerlink" href="#cp1000-py" title="Permalink to this code">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="kn">as</span> <span class="nn">mpimg</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">def</span> <span class="nf">natural_key</span><span class="p">(</span><span class="n">string_</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define sort key that is integer-aware</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">r&#39;(\d+)&#39;</span><span class="p">,</span> <span class="n">string_</span><span class="p">)]</span>
+
+<span class="n">catsT</span> <span class="o">=</span>   <span class="s1">&#39;../data/train/cats&#39;</span>
+<span class="n">catsV</span> <span class="o">=</span>   <span class="s1">&#39;../data/validation/cats&#39;</span>
+
+<span class="n">dogsT</span> <span class="o">=</span>   <span class="s1">&#39;../data/train/dogs&#39;</span>
+<span class="n">dogsV</span> <span class="o">=</span>   <span class="s1">&#39;../data/validation/dogs&#39;</span>
+
+<span class="n">TRAIN_DIR</span> <span class="o">=</span> <span class="s1">&#39;../kaggle/kaggle_dogs_vs_cats/input/train/&#39;</span>
+<span class="n">TEST_DIR</span> <span class="o">=</span> <span class="s1">&#39;../kaggle/kaggle_dogs_vs_cats/input/test/&#39;</span>
+
+<span class="n">train_cats</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TRAIN_DIR</span><span class="p">,</span> <span class="s1">&#39;cat*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+<span class="n">train_dogs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TRAIN_DIR</span><span class="p">,</span> <span class="s1">&#39;dog*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+<span class="n">train_all</span> <span class="o">=</span> <span class="n">train_cats</span> <span class="o">+</span> <span class="n">train_dogs</span>
+
+<span class="n">test_all</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TEST_DIR</span><span class="p">,</span> <span class="s1">&#39;*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_dogs</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span> <span class="o">+</span> <span class="n">train_cats</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+
+<span class="n">cats_tr</span> <span class="o">=</span> <span class="n">train_cats</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">cats_vl</span> <span class="o">=</span> <span class="n">train_cats</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">1400</span><span class="p">]</span>
+
+<span class="n">dogs_tr</span> <span class="o">=</span> <span class="n">train_dogs</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">dogs_vl</span> <span class="o">=</span> <span class="n">train_dogs</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">1400</span><span class="p">]</span>
+
+<span class="c1">#for i,fname in enumerate(cats_tr):</span>
+<span class="c1">#    print(fname)</span>
+<span class="c1">#    if i &gt;10:</span>
+<span class="c1">#        break</span>
+<span class="c1">#</span>
+<span class="c1">#for i,fname in enumerate(cats_tr):</span>
+<span class="c1">#    print(fname)</span>
+<span class="c1">#    shutil.copy(fname,catsT)</span>
+<span class="c1">#</span>
+<span class="c1">#for i,fname in enumerate(cats_vl):</span>
+<span class="c1">#    print(fname)</span>
+<span class="c1">#    shutil.copy(fname,catsV)</span>
+<span class="c1">#</span>
+<span class="c1">#for i,fname in enumerate(dogs_tr):</span>
+<span class="c1">#    print(fname)</span>
+<span class="c1">#    shutil.copy(fname,dogsT)</span>
+<span class="c1">#</span>
+<span class="c1">#for i,fname in enumerate(dogs_vl):</span>
+<span class="c1">#    print(fname)</span>
+<span class="c1">#    shutil.copy(fname,dogsV)</span>
+
+<span class="n">train_cats1</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">catsT</span><span class="p">,</span> <span class="s1">&#39;cat*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+<span class="n">train_dogs1</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dogsT</span><span class="p">,</span> <span class="s1">&#39;dog*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+
+<span class="n">val_cats1</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">catsV</span><span class="p">,</span> <span class="s1">&#39;cat*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+<span class="n">val_dogs1</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dogsV</span><span class="p">,</span> <span class="s1">&#39;dog*.jpg&#39;</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_key</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Deep Models in Practice&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Shravan Kumar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
